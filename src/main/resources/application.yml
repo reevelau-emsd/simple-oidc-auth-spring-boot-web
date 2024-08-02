@@ -1,0 +1,23 @@
+logging:
+  level:
+    org.springframework.security: INFO
+    org.springframework.web: INFO
+    org.springframework.security.oauth2: INFO
+spring:
+  application:
+    name: simple-keycloak-openid-auth-java
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: ${KEYCLOAK_CLIENT_ID}
+            client-secret: 
+            scope: openid, profile, EMSD_OpenID
+            authorization-grant-type: authorization_code
+            redirect-uri: ${REDIRECT_URI}
+            client-name: ${KEYCLOAK_CLIENT_ID}
+        provider:
+          keycloak:
+            issuer-uri: ${KEYCLOAK_SERVER_URL}/realms/${KEYCLOAK_REALM}
+            user-name-attribute: preferred_username

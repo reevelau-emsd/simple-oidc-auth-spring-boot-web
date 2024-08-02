@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Keycloak Authentication</title>
+</head>
+<body>
+    <h1>Keycloak Authentication</h1>
+    <button onclick="window.location.href='/oauth2/authorization/keycloak';">Login</button>
+    
+    <button onclick="window.location.href='./logout';">Logout</button>
+    
+    <div id="user-info" th:if="${displayName}">
+        
+        <div id="display_name"><h1>Welcome, <span th:text="${displayName}">User</span>!</h1></div>
+
+        <h2>Token Claims</h2>
+        <ul>
+            <li th:each="claim : ${claims}">
+                <span th:text="${claim.key}"></span>: <span th:text="${claim.value}"></span>
+            </li>
+        </ul>
+    </div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        // Additional JS can be added here
+        let userAuthenticated = [[${userAuthenticated}]];  // Get the value from the model
+        console.log('User Authenticated:', userAuthenticated);
+        
+        if (userAuthenticated) {
+            document.getElementById('user-info').style.display = 'block';
+        } else {
+            document.getElementById('user-info').style.display = 'none';
+        }
+        /*]]>*/
+    </script>
+</body>
+</html>
